@@ -614,7 +614,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"setTimeout(() => {}, 4000); \r",
 									""
 								],
 								"type": "text/javascript"
@@ -5783,10 +5782,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"synonyms\":[\"email\",\"online mail\"]}"
+							"raw": "{\r\n    \"synonyms\": [\r\n        \"Location\",\r\n        \"Place\"\r\n    ]\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{SendEmailEntityRefID1}}/synonyms",
+							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{SanityRefId1}}/synonyms",
 							"host": [
 								"{{url}}"
 							],
@@ -5797,7 +5796,7 @@
 								"streams",
 								"{{SanityBotStreamId}}",
 								"components",
-								"{{SendEmailEntityRefID1}}",
+								"{{SanityRefId1}}",
 								"synonyms"
 							]
 						}
@@ -6189,10 +6188,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"patterns\":[\"send_email\"]}"
+							"raw": "{\r\n    \"patterns\": [\r\n        \"Location\"\r\n    ]\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{SendEmailRefId1}}/patterns",
+							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{SanityRefId1}}/patterns",
 							"host": [
 								"{{url}}"
 							],
@@ -6203,152 +6202,8 @@
 								"streams",
 								"{{SanityBotStreamId}}",
 								"components",
-								"{{SendEmailRefId1}}",
+								"{{SanityRefId1}}",
 								"patterns"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Entity Patterns",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Adding Entity Patterns\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"var responseJson = JSON.parse(responseBody)\r",
-									"var entityname = responseJson.name;\r",
-									"var flag = 0;\r",
-									"pm.test(\"entity name validation\", function () {\r",
-									"    pm.expect(entityname).to.equal(\"email\");\r",
-									"    flag = 1;\r",
-									"});\r",
-									"if (flag === 0) {\r",
-									"    tests[\"entityname is not email\"] = false;\r",
-									"} else {\r",
-									"    tests[\"entityname is email\"] = true;\r",
-									"}\r",
-									"\r",
-									"var responseJson = JSON.parse(responseBody)\r",
-									"var patterns = responseJson.patterns[0].value;\r",
-									"var flag = 0;\r",
-									"pm.test(\"Patterns added\", function () {\r",
-									"    pm.expect(patterns).to.equal(\"*createemail\");\r",
-									"    flag = 1;\r",
-									"});\r",
-									"if (flag === 0) {\r",
-									"    tests[\"pattern is not added\"] = false;\r",
-									"} else {\r",
-									"    tests[\"Pattern *createemail  is added\"] = true;\r",
-									"}\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "authority",
-								"value": "staging-bots.korebots.com"
-							},
-							{
-								"key": "x-timezone-offset",
-								"value": "-330"
-							},
-							{
-								"key": "authorization",
-								"value": "bearer {{SanityAcToken1}}"
-							},
-							{
-								"key": "state",
-								"value": "configured"
-							},
-							{
-								"key": "content-type",
-								"value": "application/json;charset=UTF-8"
-							},
-							{
-								"key": "accept",
-								"value": "application/json, text/plain, */*"
-							},
-							{
-								"key": "bot-language",
-								"value": "en"
-							},
-							{
-								"key": "user-agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
-							},
-							{
-								"key": "x-http-method-override",
-								"value": "put"
-							},
-							{
-								"key": "accountid",
-								"value": "{{SanityAccountID1}}"
-							},
-							{
-								"key": "origin",
-								"value": "{{url}}"
-							},
-							{
-								"key": "sec-fetch-site",
-								"value": "same-origin"
-							},
-							{
-								"key": "sec-fetch-mode",
-								"value": "cors"
-							},
-							{
-								"key": "sec-fetch-dest",
-								"value": "empty"
-							},
-							{
-								"key": "referer",
-								"value": "{{url}}/botbuilder"
-							},
-							{
-								"key": "accept-language",
-								"value": "en-US,en;q=0.9"
-							},
-							{
-								"key": "cookie",
-								"value": "_ga=GA1.2.56645577.1596813294; _gid=GA1.2.113920096.1596813294"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"patterns\":[\"*createemail\"]}"
-						},
-						"url": {
-							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{SendEmailEntityRefID1}}/patterns",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"{{version}}",
-								"builder",
-								"streams",
-								"{{SanityBotStreamId}}",
-								"components",
-								"{{SendEmailEntityRefID1}}",
-								"patterns"
-							],
-							"query": [
-								{
-									"key": "rnd",
-									"value": "7p3ncd",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -7315,13 +7170,13 @@
 							"raw": "{\r\n    \"password\": \"{{password2}}\",\r\n    \"client_id\": \"1\",\r\n    \"client_secret\": \"1\",\r\n    \"scope\": \"friends\",\r\n    \"grant_type\": \"password\",\r\n    \"username\": \"{{username2}}\"\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/1.1/oAuth/token",
+							"raw": "{{url}}/api/{{version}}/oAuth/token",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"1.1",
+								"{{version}}",
 								"oAuth",
 								"token"
 							]
