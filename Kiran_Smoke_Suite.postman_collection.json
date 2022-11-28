@@ -25,10 +25,6 @@
 									"tests[\"accessToken is \" + pm.environment.get(\"SanityAcToken1\")] = true;",
 									"pm.environment.set(\"SanityUserID1\", data.userInfo.id);",
 									"tests[\"user ID is \" + pm.environment.get(\"SanityUserID1\")] = true;",
-									"",
-									"",
-									"var data = JSON.parse(responseBody);",
-									"console.log(data.userInfo.pwdChangeRequire.value);",
 									""
 								],
 								"type": "text/javascript"
@@ -85,42 +81,38 @@
 									"var flag = 0;",
 									"_.forEach(data.associatedAccounts,function(ind,val){",
 									"        pm.environment.unset(\"accountID1\");",
-									"        // if(ind.accountName === postman.getEnvironmentVariable(\"domain\")){",
 									"          if(ind.userId ===  pm.environment.get(\"SanityUserID1\")){",
-									"            // postman.setGlobalVariable(\"accountID1\",ind.accountId);",
-									"            // pm.globals.get(\"variable_key\");",
 									"            pm.environment.set(\"SanityAccountID1\", ind.accountId);",
 									"            flag = 1;",
 									"        }",
+									"",
+									" if (flag === 0){",
+									"   tests[\"Account ID\"+ pm.environment.get(\"SanityAccountID1\")+\" is not returned\"] = false;",
+									" }",
+									" else{",
+									"   tests[\"Account ID \"+ pm.environment.get(\"SanityAccountID1\")+\" is returned\"] = true;",
+									" }",
 									"});",
 									"",
-									"if (flag === 0)",
-									"{",
-									"    tests[\"Account ID\"+ pm.environment.get(\"SanityAccountID1\")+\" is not returned\"] = false;",
-									"}else",
-									"{",
-									"  tests[\"Account ID \"+ pm.environment.get(\"SanityAccountID1\")+\" is returned\"] = true;",
-									"}",
 									"",
 									"",
 									"var data = JSON.parse(responseBody);",
 									"var flag = 0;",
 									"_.forEach(data.associatedAccounts,function(ind,val){",
-									"",
-									"        // if(ind.accountName === postman.getEnvironmentVariable(\"domain\")){",
-									"          if(ind.userId ===  pm.environment.get(\"SanityUserID1\")){",
+									" if(ind.userId ===  pm.environment.get(\"SanityUserID1\")){",
 									"            pm.environment.set(\"SanityOrgId1\", ind.orgId);",
 									"            flag = 1;",
 									"        }",
-									"});",
 									"",
-									"if (flag === 0)",
-									"{",
+									"        ",
+									" if (flag === 0){",
 									"    tests[\"orgId1 ID\"+ pm.environment.get(\"SanityOrgId1\")+\" is not returned\"] = false;",
-									"}else",
-									"{",
+									"} else{",
 									"  tests[\"orgId1 ID \"+ pm.environment.get(\"SanityOrgId1\")+\" is returned\"] = true;",
 									"}",
+									"",
+									"});",
+									"",
 									"",
 									"",
 									"",
@@ -690,7 +682,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"key\": \"place\",\r\n    \"value\": \"Mumbai\",\r\n    \"hint\": \"\",\r\n    \"variableType\": \"env\",\r\n    \"audioTag\": \"\",\r\n    \"group\": \"\"\r\n}"
+							"raw": "{\r\n    \"key\": \"place\",\r\n    \"value\": \"Mumbai\",\r\n    \"hint\": \"\",\r\n    \"audioTag\": \"\",\r\n    \"isSecured\": false,\r\n    \"variableType\": \"env\",\r\n    \"group\": \"\",\r\n    \"vNameSpace\": []\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/{{version}}/users/{{SanityUserID1}}/builder/stream/{{SanityBotStreamId}}/variables",
@@ -5669,39 +5661,39 @@
 									"var entityname = responseJson.name;\r",
 									"var flag = 0;\r",
 									"pm.test(\"entityname validation\", function () {\r",
-									"    pm.expect(entityname).to.equal(\"email\");\r",
+									"    pm.expect(entityname).to.equal(\"number\");\r",
 									"    flag = 1;\r",
 									"});\r",
 									"if (flag === 0) {\r",
-									"    tests[\"entityname is not email\"] = false;\r",
+									"    tests[\"entityname is not number\"] = false;\r",
 									"} else {\r",
-									"    tests[\"entityname is email\"] = true;\r",
+									"    tests[\"entityname is number\"] = true;\r",
 									"}\r",
 									"\r",
 									"var responseJson = JSON.parse(responseBody)\r",
 									"var email = responseJson.synonyms[0];\r",
 									"var flag = 0;\r",
-									"pm.test(\"email synonym\", function () {\r",
-									"    pm.expect(email).to.equal(\"email\");\r",
+									"pm.test(\"Place synonym\", function () {\r",
+									"    pm.expect(email).to.equal(\"Location\");\r",
 									"    flag = 1;\r",
 									"});\r",
 									"if (flag === 0) {\r",
-									"    tests[\"email Synonym is not available\"] = false;\r",
+									"    tests[\"Place Synonym is not available\"] = false;\r",
 									"} else {\r",
-									"    tests[\"email synonym is added\"] = true;\r",
+									"    tests[\"Place synonym is added\"] = true;\r",
 									"}\r",
 									"\r",
 									"var responseJson = JSON.parse(responseBody)\r",
 									"var onlinemail = responseJson.synonyms[1];\r",
 									"var flag = 0;\r",
-									"pm.test(\"onlinemail synonym\", function () {\r",
-									"    pm.expect(onlinemail).to.equal(\"online mail\");\r",
+									"pm.test(\"Place synonym\", function () {\r",
+									"    pm.expect(onlinemail).to.equal(\"Place\");\r",
 									"    flag = 1;\r",
 									"});\r",
 									"if (flag === 0) {\r",
-									"    tests[\"onlinemail Synonym is not available\"] = false;\r",
+									"    tests[\"Place Synonym is not available\"] = false;\r",
 									"} else {\r",
-									"    tests[\"online mail synonym is added\"] = true;\r",
+									"    tests[\"Place synonym is added\"] = true;\r",
 									"}"
 								],
 								"type": "text/javascript"
@@ -5785,7 +5777,7 @@
 							"raw": "{\r\n    \"synonyms\": [\r\n        \"Location\",\r\n        \"Place\"\r\n    ]\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{SanityRefId1}}/synonyms",
+							"raw": "{{url}}/api/{{version}}/builder/streams/{{SanityBotStreamId}}/components/{{GetBalanceComponentId2}}/synonyms",
 							"host": [
 								"{{url}}"
 							],
@@ -5796,7 +5788,7 @@
 								"streams",
 								"{{SanityBotStreamId}}",
 								"components",
-								"{{SanityRefId1}}",
+								"{{GetBalanceComponentId2}}",
 								"synonyms"
 							]
 						}
@@ -6087,26 +6079,26 @@
 									"var intentname = responseJson.name;\r",
 									"var flag = 0;\r",
 									"pm.test(\"intent name validation\", function () {\r",
-									"    pm.expect(intentname).to.equal(\"SendEmail\");\r",
+									"    pm.expect(intentname).to.equal(\"variableCheck\");\r",
 									"    flag = 1;\r",
 									"});\r",
 									"if (flag === 0) {\r",
-									"    tests[\"Intentname is not email\"] = false;\r",
+									"    tests[\"Intentname is not variableCheck\"] = false;\r",
 									"} else {\r",
-									"    tests[\"Intentname is SendEmail\"] = true;\r",
+									"    tests[\"Intentname is variableCheck\"] = true;\r",
 									"}\r",
 									"\r",
 									"var responseJson = JSON.parse(responseBody)\r",
 									"var patterns = responseJson.patterns[0].value;\r",
 									"var flag = 0;\r",
 									"pm.test(\"Patterns added\", function () {\r",
-									"    pm.expect(patterns).to.equal(\"send_email\");\r",
+									"    pm.expect(patterns).to.equal(\"Location\");\r",
 									"    flag = 1;\r",
 									"});\r",
 									"if (flag === 0) {\r",
-									"    tests[\"pattern is not send_email\"] = false;\r",
+									"    tests[\"pattern is not Location\"] = false;\r",
 									"} else {\r",
-									"    tests[\"Patterns send_email is added\"] = true;\r",
+									"    tests[\"Patterns Location is added\"] = true;\r",
 									"}\r",
 									""
 								],
@@ -7199,10 +7191,7 @@
 									"var flag = 0;",
 									"_.forEach(data.associatedAccounts, function (ind, val) {",
 									"  pm.environment.unset(\"SanityAccountID1\");",
-									"  // if(ind.accountName === postman.getEnvironmentVariable(\"domain\")){",
 									"  if (ind.accountName === pm.environment.get(\"domain\")); {",
-									"    // postman.setGlobalVariable(\"accountID1\",ind.accountId);",
-									"    // pm.globals.get(\"variable_key\");",
 									"    pm.environment.set(\"SanityAccountID1\", ind.accountId);",
 									"    flag = 1;",
 									"  }",
@@ -7219,7 +7208,6 @@
 									"var flag = 0;",
 									"_.forEach(data.associatedAccounts, function (ind, val) {",
 									"",
-									"  // if(ind.accountName === postman.getEnvironmentVariable(\"domain\")){",
 									"  if (ind.accountName === pm.environment.get(\"domain\")); {",
 									"    pm.environment.set(\"SanityOrgId2\", ind.orgId);",
 									"    flag = 1;",
@@ -7333,7 +7321,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"client_id\": \"1\",\n\"client_secret\": \"1\",\n\"grant_type\": \"password\",\n\"isadmin\": true,\n\"password\": \"{{password1}}\",\n\"scope\": \"friends\",\n\"username\": \"{{username1}}\"\n}",
+							"raw": "{\n    \"client_id\": \"1\",\n    \"client_secret\": \"1\",\n    \"grant_type\": \"password\",\n    \"isadmin\": true,\n    \"password\": \"{{password1}}\",\n    \"scope\": \"friends\",\n    \"username\": \"{{username1}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -7370,11 +7358,9 @@
 									"var data = JSON.parse(responseBody);\r",
 									"tests[\"checking for app name\"] = true;\r",
 									"_.forEach(data, function (ind, val) {\r",
-									"    // console.log(data.ind.records.winningIntent);\r",
 									"    tests[\"check for created app\"] = true;\r",
-									"    // tests[ind.records[0].winningIntent[0]] = true;\r",
 									"    if (ind.role === \"Bot Developer\") {\r",
-									"       pm.environment.set(\"BotDeveloperroleid\",data._id);  \r",
+									"       pm.environment.set(\"BotDeveloperroleid\",ind._id);  \r",
 									"    }\r",
 									"});\r",
 									"\r",
@@ -7382,11 +7368,9 @@
 									"var data = JSON.parse(responseBody);\r",
 									"tests[\"checking for app name\"] = true;\r",
 									"_.forEach(data, function (ind, val) {\r",
-									"    // console.log(data.ind.records.winningIntent);\r",
 									"    tests[\"check for created app\"] = true;\r",
-									"    // tests[ind.records[0].winningIntent[0]] = true;\r",
 									"    if (ind.role === \"Bot Tester\") {\r",
-									"    pm.environment.set(\"Bottesterroleid\",data._id); \r",
+									"    pm.environment.set(\"Bottesterroleid\",ind._id); \r",
 									"    }\r",
 									"});\r",
 									"\r",
@@ -7394,11 +7378,9 @@
 									"var data = JSON.parse(responseBody);\r",
 									"tests[\"checking for app name\"] = true;\r",
 									"_.forEach(data, function (ind, val) {\r",
-									"    // console.log(data.ind.records.winningIntent);\r",
 									"    tests[\"check for created app\"] = true;\r",
-									"    // tests[ind.records[0].winningIntent[0]] = true;\r",
 									"    if (ind.role === \"Bot Owner\") {\r",
-									"    pm.environment.set(\"BotOwnerroleid\",data._id);\r",
+									"    pm.environment.set(\"BotOwnerroleid\",ind._id);\r",
 									"    }\r",
 									"});\r",
 									"\r",
@@ -7483,355 +7465,6 @@
 								"roles"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Share bot--Developer",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Bot is shared successfully to botdeveloper@koreai.in\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "authority",
-								"value": "staging-bots.korebots.com"
-							},
-							{
-								"key": "x-timezone-offset",
-								"value": "-330"
-							},
-							{
-								"key": "authorization",
-								"value": "bearer {{SanityAcToken1}}"
-							},
-							{
-								"key": "state",
-								"value": "configured"
-							},
-							{
-								"key": "content-type",
-								"value": "application/json;charset=UTF-8"
-							},
-							{
-								"key": "accept",
-								"value": "application/json, text/plain, */*"
-							},
-							{
-								"key": "bot-language",
-								"value": "en"
-							},
-							{
-								"key": "user-agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
-							},
-							{
-								"key": "x-http-method-override",
-								"value": "put"
-							},
-							{
-								"key": "accountid",
-								"value": "{{SanityAccountID1}}"
-							},
-							{
-								"key": "origin",
-								"value": "{{url}}"
-							},
-							{
-								"key": "sec-fetch-site",
-								"value": "same-origin"
-							},
-							{
-								"key": "sec-fetch-mode",
-								"value": "cors"
-							},
-							{
-								"key": "sec-fetch-dest",
-								"value": "empty"
-							},
-							{
-								"key": "referer",
-								"value": "{{url}}/botbuilder"
-							},
-							{
-								"key": "accept-language",
-								"value": "en-US,en;q=0.9"
-							},
-							{
-								"key": "cookie",
-								"value": "_ga=GA1.2.1995053781.1596890918; _gid=GA1.2.1877716030.1596890918"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"codevelopers\": {\r\n        \"users\": [\r\n            {\r\n                \"userId\": \"{{SanityUserID1}}\",\r\n                \"roleId\": \"{{BotOwnerroleid}}\"\r\n            },\r\n            {\r\n                \"userId\": \"{{SanityUserID2}}\",\r\n                \"roleId\": \"{{BotDeveloperroleid}}\"\r\n            }\r\n        ],\r\n        \"groups\": []\r\n    }\r\n}"
-						},
-						"url": {
-							"raw": "{{url}}/api/{{version}}/users/{{SanityUserID1}}/builder/streams/{{SanityBotStreamId}}/sharebot",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"{{version}}",
-								"users",
-								"{{SanityUserID1}}",
-								"builder",
-								"streams",
-								"{{SanityBotStreamId}}",
-								"sharebot"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Validate Developer added",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Get co developers\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"var responseJson = JSON.parse(responseBody)\r",
-									"var role = responseJson.users[1].roleInfo[0].role;\r",
-									"var flag = 0;\r",
-									"pm.test(\"Assigned role check\", function () {\r",
-									"    pm.expect(role).to.equal(\"Bot Developer\");\r",
-									"    flag = 1;\r",
-									"});\r",
-									"if (flag === 0) {\r",
-									"    tests[\"Role is not Bot Developer\"] = false;\r",
-									"} else {\r",
-									"    tests[\"Role is BotDeveloper\"] = true;\r",
-									"}\r",
-									"\r",
-									"var responseJson = JSON.parse(responseBody)\r",
-									"var roleid = responseJson.users[1].roleInfo[0]._id;\r",
-									"var flag = 0;\r",
-									"pm.test(\"Assigned role id check\", function () {\r",
-									"    pm.expect(roleid).to.equal(pm.environment.get(\"BotDeveloperroleid\"));\r",
-									"    flag = 1;\r",
-									"});\r",
-									"if (flag === 0) {\r",
-									"    tests[\"Role is not Bot Developer\"] = false;\r",
-									"} else {\r",
-									"    tests[\"Role id natches BotDeveloper id\"] = true;\r",
-									"}\r",
-									"\r",
-									"var responseJson = JSON.parse(responseBody)\r",
-									"var userid = responseJson.users[1]._id;\r",
-									"var flag = 0;\r",
-									"pm.test(\"Assigned User id check\", function () {\r",
-									"    pm.expect(userid).to.equal(pm.environment.get(\"SanityUserID2\"));\r",
-									"    flag = 1;\r",
-									"});\r",
-									"if (flag === 0) {\r",
-									"    tests[\"User id is not matching\"] = false;\r",
-									"} else {\r",
-									"    tests[\"user id is shared developer id\"] = true;\r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "authority",
-								"value": "staging-bots.korebots.com"
-							},
-							{
-								"key": "x-timezone-offset",
-								"value": "-330"
-							},
-							{
-								"key": "authorization",
-								"value": "bearer {{SanityAcToken1}}"
-							},
-							{
-								"key": "state",
-								"value": "configured"
-							},
-							{
-								"key": "content-type",
-								"value": "application/json;charset=UTF-8"
-							},
-							{
-								"key": "accept",
-								"value": "application/json, text/plain, */*"
-							},
-							{
-								"key": "user-agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
-							},
-							{
-								"key": "bot-language",
-								"value": "en"
-							},
-							{
-								"key": "accountid",
-								"value": "{{SanityAccountID1}}"
-							},
-							{
-								"key": "sec-fetch-site",
-								"value": "same-origin"
-							},
-							{
-								"key": "sec-fetch-mode",
-								"value": "cors"
-							},
-							{
-								"key": "sec-fetch-dest",
-								"value": "empty"
-							},
-							{
-								"key": "referer",
-								"value": "{{url}}/botbuilder"
-							},
-							{
-								"key": "accept-language",
-								"value": "en-US,en;q=0.9"
-							},
-							{
-								"key": "cookie",
-								"value": "_ga=GA1.2.1995053781.1596890918; _gid=GA1.2.1877716030.1596890918"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/api/{{version}}/users/{{SanityUserID1}}/builder/streams/{{SanityBotStreamId}}/getcodevelopers",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"{{version}}",
-								"users",
-								"{{SanityUserID1}}",
-								"builder",
-								"streams",
-								"{{SanityBotStreamId}}",
-								"getcodevelopers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetBotID --Shared developer",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"    function delay(ms) {\r",
-									"        var cur_d = new Date();\r",
-									"        var cur_ticks = cur_d.getTime();\r",
-									"        var ms_passed = 0;\r",
-									"        while(ms_passed < ms) {\r",
-									"            var d = new Date();  // Possible memory leak?\r",
-									"            var ticks = d.getTime();\r",
-									"            ms_passed = ticks - cur_ticks;\r",
-									"        }\r",
-									"    }\r",
-									"    delay(5000);"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Get Streams is successful\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"var data = JSON.parse(responseBody);",
-									"var check = false;",
-									"",
-									"_.forEach(data,function(ind,value){",
-									"   ",
-									"   if(ind.name === postman.getEnvironmentVariable(\"SanityBotName\")){",
-									"       ",
-									"       postman.setEnvironmentVariable(\"sanstreamId\", ind._id);",
-									"       check = true;",
-									"       tests[\"StreamID found\"] = responseCode.code === 200;",
-									"   }",
-									"    ",
-									"});",
-									"",
-									"",
-									"if(!check){",
-									"    ",
-									"    tests[\"Stream ID not found\"] = responseCode.code === 100;",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "bearer {{SanityAcToken2}}"
-							},
-							{
-								"key": "accountid",
-								"value": "{{SanityAccountID1}}"
-							},
-							{
-								"key": "user-agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "bot-language",
-								"value": "{{Lang}}"
-							},
-							{
-								"key": "Connection",
-								"value": "keep-alive"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/api/1.1/users/{{SanityUserID2}}/builder/streams",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"1.1",
-								"users",
-								"{{SanityUserID2}}",
-								"builder",
-								"streams"
-							]
-						},
-						"description": "Generated from a curl request: \ncurl 'https://qa1-bots.kore.com/api/1.1/users/u-bff670bb-b592-5a95-930c-d06be3a1e607/builder/streams?rnd=o6uo5' -H 'Cookie: unq=D9Gy1TnE2hRQtC6X' -H 'Accept-Encoding: gzip, deflate, sdch, br' -H 'Accept-Language: en-US,en;q=0.8' -H 'Authorization: bearer f6U3YUh780JNLSA0TzpGusMay2_NhiybzkptlJrZRYHCMsQsmjdOaDp9blZ1RUTt' -H 'Content-Type: application/json;charset=UTF-8' -H 'Accept: application/json, text/plain, */*' -H 'Referer: https://qa1-bots.kore.com/botbuilder' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36' -H 'Connection: keep-alive' --compressed"
 					},
 					"response": []
 				}
@@ -9803,13 +9436,14 @@
 			"name": "1.14 RunTime_TaskExecution Copy",
 			"item": [
 				{
-					"name": "InitialMessage",
+					"name": "Input_InitialMessage",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
 									"pm.environment.set(\"SanityfromId\", \"kore\" + parseInt(Math.random() * 1000000));",
+									"",
 									""
 								],
 								"type": "text/javascript"
@@ -9825,6 +9459,8 @@
 									"var body = JSON.parse(responseBody);",
 									"var message=body.text",
 									"tests[\"Response Contains: \" + message]= body.length !== 0",
+									"",
+									"",
 									" "
 								],
 								"type": "text/javascript"
@@ -9842,138 +9478,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"message\": {\n        \"text\": \"Hi\"\n    },\n    \"from\": {\n        \"id\": \"{{SanityfromId}}\"\n    },\n    \"to\": {\n        \"id\": \"4321\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/chatbot/hooks/{{SanityBotStreamId}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"chatbot",
-								"hooks",
-								"{{SanityBotStreamId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Input SmallTalk",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"    });",
-									"var body = JSON.parse(responseBody);",
-									"var message=body.text",
-									"tests[\"Response Contains: \" + message]= body.length !== 0",
-									"",
-									"",
-									"pm.test(\"The terminologies Internet, Intranet, and Extranet are used to define how the applications in the network can be accessed. They use similar TCP/IP technology but differ in terms of access levels for each user inside the network and outside the network.\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"Internet\");",
-									"});",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "bearer {{SanityWebhookToken}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"message\": {\n        \"text\": \"difference between the Internet, Intranet, and Extranet?\"\n    },\n    \"from\": {\n        \"id\": \"{{SanityfromId}}\"\n    },\n    \"to\": {\n        \"id\": \"4321\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/chatbot/hooks/{{SanityBotStreamId}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"chatbot",
-								"hooks",
-								"{{SanityBotStreamId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "InitialMessage_variableCheck",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"SanityfromId\", \"kore\" + parseInt(Math.random() * 1000000));",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"var body = JSON.parse(responseBody);",
-									"var message=body.text",
-									"tests[\"Response Contains: \" + message]= body.length !== 0",
-									"",
-									"pm.test(\"GLobal Variable defined is able to access at nodes\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"Mumbai\");",
-									"});",
-									" "
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "bearer {{SanityWebhookToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"message\": {\n        \"text\": \"variableCheck\"\n    },\n    \"from\": {\n        \"id\": \"{{SanityfromId}}\"\n    },\n    \"to\": {\n        \"id\": \"4321\"\n    }\n}",
+							"raw": "{\n    \"message\": {\n        \"text\": \"hi\"\n    },\n    \"from\": {\n        \"id\": \"{{SanityfromId}}\"\n    },\n    \"to\": {\n        \"id\": \"4321\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -10001,7 +9506,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"SanityfromId\", \"kore\" + parseInt(Math.random() * 1000000));",
 									""
 								],
 								"type": "text/javascript"
@@ -10128,8 +9632,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"SanityfromId\", \"kore\" + parseInt(Math.random() * 1000000));",
-									"",
 									""
 								],
 								"type": "text/javascript"
@@ -10858,7 +10360,655 @@
 			]
 		},
 		{
-			"name": "1.15 New Bot Import",
+			"name": "1.15 Admin Scopes--Add and Delete",
+			"item": [
+				{
+					"name": "Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Email id validation\",function(){",
+									"var responseJson=JSON.parse(responseBody);",
+									"var emailId=responseJson.userInfo.emailId;",
+									"pm.expect(emailId).to.equal(pm.environment.get(\"username1\"));",
+									"});",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"pm.environment.set(\"botadminaccesstokenuser1\", data.authorization.accessToken);",
+									"pm.environment.set(\"botadminUserID1\", data.authorization.resourceOwnerID);",
+									"pm.environment.set(\"botadminorgID1\", data.userInfo.orgID);",
+									"pm.environment.set(\"adminaccountID1\",data.authorization.accountId);",
+									"",
+									"pm.test(\"validate Account ID\", function () {",
+									"var responseJson=JSON.parse(responseBody);",
+									"var accountId=responseJson.authorization.accountId;",
+									"pm.expect(accountId).to.equal(pm.environment.get(\"adminaccountID1\"));",
+									"});",
+									"",
+									"pm.test(\"validate organisation ID\", function () {",
+									"var responseJson=JSON.parse(responseBody);",
+									"var orgId=responseJson.userInfo.orgID;",
+									"pm.expect(orgId).to.equal(pm.environment.get(\"botadminorgID1\"));",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client_id\": \"1\",\n    \"client_secret\": \"1\",\n    \"grant_type\": \"password\",\n    \"isadmin\": true,\n    \"password\": \"{{password1}}\",\n    \"scope\": \"friends\",\n    \"username\": \"{{username1}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/oAuth/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"oAuth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create App",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var data = JSON.parse(responseBody);",
+									"pm.environment.set(\"scopeclientId\", data.clientId);",
+									"pm.environment.set(\"scopeclientSecret\", data.clientSecret);",
+									"pm.environment.set(\"scopeappName\", data.appName);",
+									"",
+									"pm.test(\"validate client Id\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var clientId = responseJson.clientId;",
+									"    pm.expect(clientId).to.equal(pm.environment.get(\"scopeclientId\"));",
+									"});",
+									"",
+									"pm.test(\"validate client secret\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var clientSecret = responseJson.clientSecret;",
+									"    pm.expect(clientSecret).to.equal(pm.environment.get(\"scopeclientSecret\"));",
+									"});",
+									"",
+									"pm.test(\"validate appname\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var appName = responseJson.appName;",
+									"    pm.expect(appName).to.equal(pm.environment.get(\"scopeappName\"));",
+									"});",
+									"",
+									"pm.test(\"validate admin app state\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var appstate = responseJson.isAdminApp;",
+									"    pm.expect(appstate).to.equal(true);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setEnvironmentVariable(\"sanityadminapp\", \"APP\" + parseInt(Math.random() * 1000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{botadminaccesstokenuser1}}"
+							},
+							{
+								"key": "AccountId",
+								"value": "{{adminaccountID1}}"
+							},
+							{
+								"key": "Requester-Type",
+								"value": "admin"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Origin",
+								"value": "{{url}}"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}/botadmin/"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "Cookie",
+								"value": "_ga=GA1.2.544935457.1580188389; __hs_opt_out=yes; _gid=GA1.2.2102356260.1588518099"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"algorithm\": \"HS256\",\n    \"appName\": \"{{sanityadminapp}}\",\n    \"bots\": [],\n    \"pushNotifications\": {\n        \"enable\": false,\n        \"webhookUrl\": \"\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/organization/{{botadminorgID1}}/users/{{botadminUserID1}}/sdk/apps",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"organization",
+								"{{botadminorgID1}}",
+								"users",
+								"{{botadminUserID1}}",
+								"sdk",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting Created app details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Getting details\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.apps;",
+									"    pm.expect(data).to.be.an(\"array\");",
+									"});",
+									"",
+									"tests[\"created app is\" + pm.environment.get(\"scopeappName\")] = true;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var flag = 0;",
+									"tests[\"checking for app name\"] = true;",
+									"_.forEach(data.apps, function (ind, val) {",
+									"    // console.log(data.ind.records.winningIntent);",
+									"    tests[\"check for created app\"] = true;",
+									"    // tests[ind.records[0].winningIntent[0]] = true;",
+									"    if (ind.appName === pm.environment.get(\"scopeappName\")) {",
+									"        tests[\"Validate appname\"] = true;",
+									"        flag = 1;",
+									"    }",
+									"});",
+									"",
+									"if (flag === 0) {",
+									"    tests[\"created app name\" + pm.environment.get(\"scopeappname\") + \" does not exist\"] = false;",
+									"} else {",
+									"    tests[\"created app name \" + pm.environment.get(\"scopeappname\") + \" exists\"] = true;",
+									"}",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{botadminaccesstokenuser1}}"
+							},
+							{
+								"key": "AccountId",
+								"value": "{{adminaccountID1}}"
+							},
+							{
+								"key": "Requester-Type",
+								"value": "admin"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}/admin/"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "Cookie",
+								"value": "_ga=GA1.2.544935457.1580188389; __hs_opt_out=yes; _gid=GA1.2.1275676766.1588748980"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/{{version}}/organization/{{botadminorgID1}}/users/{{botadminUserID1}}/sdk/apps",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"organization",
+								"{{botadminorgID1}}",
+								"users",
+								"{{botadminUserID1}}",
+								"sdk",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assigning all Scopes available",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"validate client Id\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var clientId = responseJson.clientId;",
+									"    pm.expect(clientId).to.equal(pm.environment.get(\"scopeclientId\"));",
+									"});",
+									"pm.test(\"validate client secret\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var clientSecret = responseJson.clientSecret;",
+									"    pm.expect(clientSecret).to.equal(pm.environment.get(\"scopeclientSecret\"));",
+									"});",
+									"pm.test(\"validate appname\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var appName = responseJson.appName;",
+									"    pm.expect(appName).to.equal(pm.environment.get(\"scopeappName\"));",
+									"});",
+									"pm.test(\"validate Scopes\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var scopes = responseJson.scope;",
+									"    pm.expect(scopes).to.be.an(\"array\");",
+									"});",
+									"pm.test(\"validate Scopes array\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var scopen = responseJson.scope[0];",
+									"    pm.expect(scopen).to.have.keys(\"scopes\");",
+									"});",
+									"pm.test(\"validate Scopes assigned\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var scopa = responseJson.scope[0].scopes;",
+									"    pm.expect(scopa).to.be.an(\"array\");",
+									"});",
+									"pm.test(\"botimport scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[0];",
+									"    pm.expect(data).to.equal(\"bot_definition:bot_import\");",
+									"});",
+									"pm.test(\"botexport scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[1];",
+									"    pm.expect(data).to.equal(\"bot_definition:bot_export\");",
+									"});",
+									"pm.test(\"botcreate scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[2];",
+									"    pm.expect(data).to.equal(\"bot_definition:bot_create\");",
+									"});",
+									"pm.test(\"botpublish scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[3];",
+									"    pm.expect(data).to.equal(\"bot_publish:publish_request\");",
+									"});",
+									"pm.test(\"ML train scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[4];",
+									"    pm.expect(data).to.equal(\"test_and_train:ml\");",
+									"});",
+									"pm.test(\"Faq train scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[5];",
+									"    pm.expect(data).to.equal(\"test_and_train:faq\");",
+									"});",
+									"pm.test(\"ml import scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[6];",
+									"    pm.expect(data).to.equal(\"test_and_train:ml_import\");",
+									"});",
+									"pm.test(\"ml export scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[7];",
+									"    pm.expect(data).to.equal(\"test_and_train:ml_export\");",
+									"});",
+									"pm.test(\"change logs scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[8];",
+									"    pm.expect(data).to.equal(\"logs:change_logs\");",
+									"});",
+									"pm.test(\"admin console logs scope\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[9];",
+									"    pm.expect(data).to.equal(\"logs:admin_console_audit_logs\");",
+									"});",
+									"pm.test(\"RLM\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[10];",
+									"    pm.expect(data).to.equal(\"role_management:role_management\");",
+									"});",
+									"pm.test(\"GDPR\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[11];",
+									"    pm.expect(data).to.equal(\"delete:delete_user_data\");",
+									"});",
+									"pm.test(\"Chat history read\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[12];",
+									"    pm.expect(data).to.equal(\"chat_history:read\");",
+									"});",
+									"pm.test(\"Botsessions read\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[13];",
+									"    pm.expect(data).to.equal(\"bot_sessions:read\");",
+									"});",
+									"pm.test(\"userManagement\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[14];",
+									"    pm.expect(data).to.equal(\"user_management:user_management\");",
+									"});",
+									"pm.test(\"Custom Dashboard\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[15];",
+									"    pm.expect(data).to.equal(\"custom_dashboards:custom_dashboards\");",
+									"});",
+									"pm.test(\"KG\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[16];",
+									"    pm.expect(data).to.equal(\"knowledge_graph:knowledge_graph\");",
+									"});",
+									"pm.test(\"Intent_entity\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[17];",
+									"    pm.expect(data).to.equal(\"intent_entity:detection\");",
+									"});",
+									"pm.test(\"ChannelManagement\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[18];",
+									"    pm.expect(data).to.equal(\"channel_management:channel_management\");",
+									"});",
+									"pm.test(\"Botkit\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[19];",
+									"    pm.expect(data).to.equal(\"botkit:botkit\");",
+									"});",
+									"pm.test(\"masteradmin\", function () {",
+									"    var responseJson = JSON.parse(responseBody);",
+									"    var data = responseJson.scope[0].scopes[20];",
+									"    pm.expect(data).to.equal(\"master_admin:master_admin\");",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{botadminaccesstokenuser1}}"
+							},
+							{
+								"key": "AccountId",
+								"value": "{{adminaccountID1}}"
+							},
+							{
+								"key": "Requester-Type",
+								"value": "admin"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+							},
+							{
+								"key": "X-HTTP-Method-Override",
+								"value": "PUT"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=UTF-8"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Origin",
+								"value": "{{url}}"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}/admin/"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "Cookie",
+								"value": "_ga=GA1.2.544935457.1580188389; __hs_opt_out=yes; _gid=GA1.2.2102356260.1588518099"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"algorithm\":\"HS256\",\n\"appName\":\"{{scopeappName}}\",\n\"bots\":[],\n\"pushNotifications\":{\n\t\"enable\":false,\n\t\"webhookUrl\":\"\"\n},\n\"scope\":[{\n\t\"scopes\":[\n\t\t\"bot_definition:bot_import\",\n\t\t\"bot_definition:bot_export\",\n\t\t\"bot_definition:bot_create\",\n\t\t\"bot_publish:publish_request\",\n\t\t\"test_and_train:ml\",\n\t\t\"test_and_train:faq\",\n\t\t\"test_and_train:ml_import\",\n\t\t\"test_and_train:ml_export\",\n\t\t\"logs:change_logs\",\n        \"logs:admin_console_audit_logs\",\n        \"role_management:role_management\",\n        \"delete:delete_user_data\",\n        \"chat_history:read\",\n        \"bot_sessions:read\",\n        \"user_management:user_management\",\n        \"custom_dashboards:custom_dashboards\",\n        \"knowledge_graph:knowledge_graph\",\n        \"intent_entity:detection\",\n        \"channel_management:channel_management\",\n        \"botkit:botkit\",\"master_admin:master_admin\"\n\t\t]}\n\t\t]}"
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/organization/{{botadminorgID1}}/users/{{botadminUserID1}}/sdk/apps/{{scopeclientId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"organization",
+								"{{botadminorgID1}}",
+								"users",
+								"{{botadminUserID1}}",
+								"sdk",
+								"apps",
+								"{{scopeclientId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GenerateJWT Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var data=JSON.parse(responseBody)\r",
+									"pm.environment.set(\"EERSJWT\",data.jwt)\r",
+									"tests[\"Generated JWT token is: \" +data.jwt+ \"\"]=true;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"clientId\": \"{{scopeclientId}}\",\n\"clientSecret\": \"{{scopeclientSecret}}\",\n\"identity\": \"{{botadminUserID1}}\",\n\"aud\": \"\",\n\"isAnonymous\": false\n}"
+						},
+						"url": {
+							"raw": "https://mk2r2rmj21.execute-api.us-east-1.amazonaws.com/dev/users/sts",
+							"protocol": "https",
+							"host": [
+								"mk2r2rmj21",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"users",
+								"sts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "1.16 New Bot Import",
 			"item": [
 				{
 					"name": "Bot Definition File Upload",
